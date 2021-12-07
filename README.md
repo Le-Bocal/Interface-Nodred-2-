@@ -78,7 +78,7 @@ Pour commencer, il faut tout simplement initialiser la récupération des donné
 
 Nous avons récupéré les données de température. Maintenant, il faut ouvrir une connexion sur le réseau, afin que pour la suite, une communication au raspberry soit possible.
 
-    ```
+```
     #include <ESP8266WiFi.h>
     #include <ESP8266WiFiMulti.h> 
 
@@ -113,13 +113,13 @@ Nous avons récupéré les données de température. Maintenant, il faut ouvrir 
     void loop() {
         client.loop();
     }
-    ```
+```
 
 ### Envoie des données en MQTT
 Pour en terminer avec l'esp, nous devons faire en sorte que les données du capteur s'envoie en MQTT sur le raspberry.
 Note : un broker MQTT est déjà présent sur le raspberry, donc il n'y a rien à modifier de ce côté.
 
-    ```
+```
     #include <PubSubClient.h> //Librairie pour la gestion Mqtt 
 
     //MQTT
@@ -198,7 +198,7 @@ Note : un broker MQTT est déjà présent sur le raspberry, donc il n'y a rien �
             Serial.println(temp);
         }
     }
-    ```
+```
 
 ## Développement Node-RED
 
@@ -221,19 +221,19 @@ Tout d'abord, nous devons sélectionner la base de données dans laquelle les in
 Ensuite, avec des nœuds d'injection, il faut mettre en place les requêtes basiques SQL (afin de manipuler la table de données plus facilement).
 
 Nœud pour créer la table de données :
-    ```
+```
     CREATE TABLE Temperature(id INTEGER PRIMARY KEY AUTOINCREMENT, temperature NUMERIC, currentdate DATE)
-    ```
+```
 
 Nœud pour supprimer la table de données :
-    ```
+```
     DROP TABLE Temperature
-    ```
+```
 
 Nœud pour visualiser les données :
-    ```
+```
     SELECT * FROM Temperature
-    ```
+```
 
 Maintenant que les nœuds de débogage sont mis en place, nous pouvons créer le message pour insérer les informations.
 
@@ -247,9 +247,9 @@ Note : avant d'insérer des données, assurez-vous d'avoir créé la table de do
 
 Commençons par placer un nœud sqlite afin de sélectionner la dernière donnée.
 Mettons la catégorie " SQL Query" avec mode "fixed Statement" et rentrer l'instruction SQL suivante :
-    ```
+```
     SELECT temperature, currentdate FROM Temperature ORDER BY id DESC LIMIT 1;
-    ```
+```
 
 Ensuite, il faut formater le message de sortie du nœud sql avec un change-node.
 ![Set msg.payload](/CapteurTempMQTT/content/set-payload.PNG)
