@@ -35,6 +35,7 @@ Le brochage du capteur TMP36 est assez simple étant un capteur analogique.
 - GND (Masse) <-> GND
 
 ![TMP36 schéma](/CapteurTempMQTT/content/schema-esp.PNG)
+
 Remarque : le fil reliant les ports "D0" et "RST" du module ESP8266 servira pour une fonction du code wifi.
 
 ## CODE
@@ -212,10 +213,13 @@ Note : les palettes utilisées lors de ce développement sont, "node-red-node-sq
 Pour commencer sur Node-RED, il faut s'abonner au Broker MQTT du raspberry. En faisant cela, nous recevrons automatiquement les données du capteur de température dès qu'elles sont envoyées par l'esp.
 
 ![Nœud MQTT](/CapteurTempMQTT/content/node-MQTT.PNG)
+
 Afin de récupérer les informations du Broker, un simple nœud de sortie suffit. Pour le configurer, il faut le connecter au Broker avec la catégorie "Server" (ici en 'localhost', car le broken et Node-RED sont sur la même machine), et indiquer le topic que nous souhaitons écouter. 
 
 ### Stockage dans une base de données
+
 ![Nœud MQTT](/CapteurTempMQTT/content/node-Sqlite.PNG)
+
 Tout d'abord, nous devons sélectionner la base de données dans laquelle les informations de température seront stockées.
 
 Ensuite, avec des nœuds d'injection, il faut mettre en place les requêtes basiques SQL (afin de manipuler la table de données plus facilement).
@@ -238,11 +242,13 @@ Nœud pour visualiser les données :
 Maintenant que les nœuds de débogage sont mis en place, nous pouvons créer le message pour insérer les informations.
 
 Note : avant d'insérer des données, assurez-vous d'avoir créé la table de données (via le nœud d'injection)
+
 ![Nœud fonction SQL](/CapteurTempMQTT/content/node-fonction-sql.PNG)
 
 ### Visualisation des informations de température
 
 À présent, les données sont stockées, donc nous pouvons mettre en œuvre un graphique afin de les afficher.
+
 ![Graphique de température](/CapteurTempMQTT/content/graph-temp.PNG)
 
 Commençons par placer un nœud sqlite afin de sélectionner la dernière donnée.
@@ -252,13 +258,17 @@ Mettons la catégorie " SQL Query" avec mode "fixed Statement" et rentrer l'inst
 ```
 
 Ensuite, il faut formater le message de sortie du nœud sql avec un change-node.
+
 ![Set msg.payload](/CapteurTempMQTT/content/set-payload.PNG)
 
 À la suite, mettons notre chart qui dessinera le graphique.
+
 ![Configuration du graph](/CapteurTempMQTT/content/node-chart.PNG)
 
 Finalement, il faut automatiser tout ceci. Pour cela, mettons un nœud triger devant le nœud sql précédent. Ce trigger regardera la fonction "Write Query" qui crée le message pour insérer les données dans la base. Donc, chaque fois que la fonction s'activera, le trigger se déclenchera, ce qui initialisera le nœud sql de sélection de données.
+
 ![Trigger d'automatisation du système](/CapteurTempMQTT/content/node-trigger.PNG)
 
 ## Conclusion
-Désormais, nous avons un système complet qui récupère des informations de température, stock les données, et les affiche sous forme de graphique. Ce qu'il va manquer, c'est une amélioration du système afin que l'utilisateur puisse sélectionner la période voulue.
+Désormais, nous avons un système complet qui récupère des informations de température, stock les données, et les affiche sous forme de graphique. Ce qu'il va manquer, 
+c'est une amélioration du système afin que l'utilisateur puisse sélectionner la période voulue.
