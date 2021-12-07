@@ -48,7 +48,7 @@ Pour le code de l'ESP8266, les libraires suivantes seront utilisées :
 
 Pour commencer, il faut tout simplement initialiser la récupération des données du capteur TMP36.
 
-   
+```
     int sensorPin = 0;
  
     void setup()
@@ -72,7 +72,7 @@ Pour commencer, il faut tout simplement initialiser la récupération des donné
  
     delay(1000);
     }
-    
+```
 
 ### Connexion Wifi
 
