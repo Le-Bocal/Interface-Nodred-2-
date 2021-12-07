@@ -34,7 +34,7 @@ Le brochage du capteur TMP36 est assez simple étant un capteur analogique.
 - Vout <-> A0 (Entrée analogique du module esp)
 - GND (Masse) <-> GND
 
-![TMP36 schéma](/CapteurTempMQTT/content/schema-esp.png)
+![TMP36 schéma](/CapteurTempMQTT/content/schema-esp.PNG)
 Remarque : le fil reliant les ports "D0" et "RST" du module ESP8266 servira pour une fonction du code wifi.
 
 ## CODE
