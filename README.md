@@ -272,3 +272,7 @@ Finalement, il faut automatiser tout ceci. Pour cela, mettons un nœud triger de
 ## Conclusion
 Désormais, nous avons un système complet qui récupère des informations de température, stock les données, et les affiche sous forme de graphique. Ce qu'il va manquer, 
 c'est une amélioration du système afin que l'utilisateur puisse sélectionner la période voulue.
+
+## À suivre
+Dans une deuxième partie, le capteur TMP36 devra être changé par un DHT22. Cela ajoutera une donnée pour l'hydrométrie. Il faudra la stocker et l'afficher sur un graphique séparé.
+Par la suite une autre sonde thermomètre pourra être déployé dans le garage.
